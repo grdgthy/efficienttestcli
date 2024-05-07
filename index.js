@@ -1,20 +1,15 @@
-function calculate(s) {
-  const stack = [];
-  let num = 0;
-  let sign = "+";
+function countSubstrings(s) {
+  let count = 0;
   for (let i = 0; i < s.length; i++) {
-    const char = s[i];
-    if (!isNaN(parseInt(char)) && char !== " ") {
-      num = num * 10 + parseInt(char);
-    }
-    if (isNaN(parseInt(char)) || i === s.length - 1) {
-      if (sign === "+") stack.push(num);
-      else if (sign === "-") stack.push(-num);
-      else if (sign === "*") stack.push(stack.pop() * num);
-      else if (sign === "/") stack.push(parseInt(stack.pop() / num));
-      num = 0;
-      sign = char;
+    extendPalindrome(i, i);
+    extendPalindrome(i, i + 1);
+  }
+  return count;
+  function extendPalindrome(left, right) {
+    while (left >= 0 && right < s.length && s[left] === s[right]) {
+      count++;
+      left--;
+      right++;
     }
   }
-  return stack.reduce((acc, val) => acc + val, 0);
 }
