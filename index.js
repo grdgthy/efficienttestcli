@@ -1,22 +1,12 @@
-function mergeKLists(lists) {
-  if (!lists || !lists.length) return null;
-  return mergeLists(lists, 0, lists.length - 1);
-  function mergeLists(lists, start, end) {
-    if (start === end) return lists[start];
-    const mid = Math.floor((start + end) / 2);
-    const left = mergeLists(lists, start, mid);
-    const right = mergeLists(lists, mid + 1, end);
-    return mergeTwoLists(left, right);
-  }
-  function mergeTwoLists(l1, l2) {
-    if (!l1) return l2;
-    if (!l2) return l1;
-    if (l1.val < l2.val) {
-      l1.next = mergeTwoLists(l1.next, l2);
-      return l1;
-    } else {
-      l2.next = mergeTwoLists(l1, l2.next);
-      return l2;
+const insertionSort = (arr) => {
+  for (let i = 1; i < arr.length; i++) {
+    let key = arr[i];
+    let j = i - 1;
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j--;
     }
+    arr[j + 1] = key;
   }
-}
+  return arr;
+};
