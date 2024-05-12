@@ -1,17 +1,16 @@
-function combinationSum(candidates, target) {
-  const result = [];
-  backtrack([], 0, 0);
-  return result;
-  function backtrack(combination, start, sum) {
-    if (sum === target) {
-      result.push([...combination]);
-      return;
+function longestCommonPrefix(strs) {
+  if (strs.length === 0) return "";
+  let prefix = strs[0];
+  for (let i = 1; i < strs.length; i++) {
+    let j = 0;
+    while (
+      j < prefix.length &&
+      j < strs[i].length &&
+      prefix.charAt(j) === strs[i].charAt(j)
+    ) {
+      j++;
     }
-    if (sum > target) return;
-    for (let i = start; i < candidates.length; i++) {
-      combination.push(candidates[i]);
-      backtrack(combination, i, sum + candidates[i]);
-      combination.pop();
-    }
+    prefix = prefix.substring(0, j);
   }
+  return prefix;
 }
