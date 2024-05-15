@@ -1,13 +1,20 @@
-function numDecodings(s) {
-  if (s.length === 0) return 0;
-  const dp = new Array(s.length + 1).fill(0);
-  dp[0] = 1;
-  dp[1] = s[0] !== "0" ? 1 : 0;
-  for (let i = 2; i <= s.length; i++) {
-    const oneDigit = parseInt(s.substring(i - 1, i));
-    const twoDigits = parseInt(s.substring(i - 2, i));
-    if (oneDigit >= 1) dp[i] += dp[i - 1];
-    if (twoDigits >= 10 && twoDigits <= 26) dp[i] += dp[i - 2];
+function findCircleNum(M) {
+  if (!M || M.length === 0) return 0;
+  const visited = new Array(M.length).fill(false);
+  let count = 0;
+  for (let i = 0; i < M.length; i++) {
+    if (!visited[i]) {
+      dfs(M, i, visited);
+      count++;
+    }
   }
-  return dp[s.length];
+  return count;
+}
+function dfs(M, i, visited) {
+  visited[i] = true;
+  for (let j = 0; j < M.length; j++) {
+    if (M[i][j] === 1 && !visited[j]) {
+      dfs(M, j, visited);
+    }
+  }
 }
